@@ -2,6 +2,7 @@ import pygame
 
 
 COEFFICIENTS_TILES_AROUND = [(0, 0), (1, 0), (0, 1), (1, 1), (-1, 0), (0, -1), (-1, 1), (1, -1), (-1, -1)]
+PHYSICS_ENABLED_TILES = {'grass', 'stone'}
 
 
 class Tilemap:
@@ -27,6 +28,20 @@ class Tilemap:
         return tiles
 
 
+    def physics_rects_around(self, pos):
+        rects = []
+        for tile in self.tiles_around(pos):
+            if tile['type'] in PHYSICS_ENABLED_TILES:
+                rects.append(pygame.Rect(
+                    tile['pos'][0] * self.tile_size,
+                    tile['pos'][1] * self.tile_size,
+                    self.tile_size,
+                    self.tile_size
+                ))
+
+        return rects
+
+
     def render(self, surf):
         for tile_loc in self.tilemap:
             current_tile = self.tilemap[tile_loc] # gettin concrete info(type, variant, pos) using str loc
@@ -34,4 +49,3 @@ class Tilemap:
             # blitting images from resources to surface
             surf.blit(self.game.resources[current_tile['type']][current_tile['image_id']],
                          (self.tile_size * current_tile['pos'][0], self.tile_size * current_tile['pos'][1]))
-
