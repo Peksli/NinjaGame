@@ -1,6 +1,9 @@
 import pygame
 
 
+COEFFICIENTS_TILES_AROUND = [(0, 0), (1, 0), (0, 1), (1, 1), (-1, 0), (0, -1), (-1, 1), (1, -1), (-1, -1)]
+
+
 class Tilemap:
     def __init__(self, game, tile_size=16):
         self.game = game
@@ -13,8 +16,15 @@ class Tilemap:
             self.tilemap['10;' + str(3 + i)] = {'type': 'stone', 'image_id': 1, 'pos': (10, 3 + i)}
 
 
-    def tiles_around(self):
-        pass
+    def tiles_around(self, pos):
+        tiles = []
+        player_tile_loc = (int(pos[0] // self.tile_size), int(pos[1] // self.tile_size))
+        for offset in COEFFICIENTS_TILES_AROUND:
+            tile_offset_loc = str(player_tile_loc[0] + offset[0]) + ';' + str(player_tile_loc[1] + offset[1])
+            if tile_offset_loc in self.tilemap:
+                tiles.append(self.tilemap[tile_offset_loc])
+
+        return tiles
 
 
     def render(self, surf):

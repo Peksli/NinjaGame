@@ -17,7 +17,7 @@ class Game:
 
         self.clock = pygame.time.Clock()
 
-        self.player = PhysicsEntity(self, 'player', (50, 50), (8, 16))
+        self.player = PhysicsEntity(self, 'player', (80, 50), (8, 16))
         self.tilemap = Tilemap(self, tile_size=16)
 
         self.resources = {
@@ -35,6 +35,7 @@ class Game:
             self.tilemap.render(self.current_window)
 
             self.player.update((self.movement[1] - self.movement[0], 0))
+            print(self.tilemap.tiles_around(self.player.pos))
             self.player.render(self.current_window)
 
             for event in pygame.event.get():
