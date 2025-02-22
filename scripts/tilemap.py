@@ -13,6 +13,10 @@ class Tilemap:
             self.tilemap['10;' + str(3 + i)] = {'type': 'stone', 'image_id': 1, 'pos': (10, 3 + i)}
 
 
+    def tiles_around(self):
+        pass
+
+
     def render(self, surf):
         for tile_loc in self.tilemap:
             current_tile = self.tilemap[tile_loc] # gettin concrete info(type, variant, pos) using str loc
