@@ -34,7 +34,7 @@ class Game:
             self.current_window.fill((14, 219, 248))
             self.tilemap.render(self.current_window)
 
-            self.player.update((self.movement[1] - self.movement[0], 0))
+            self.player.update(self.tilemap,self.current_window, (self.movement[1] - self.movement[0], 0))
             self.player.render(self.current_window)
 
             print(self.tilemap.physics_rects_around(self.player.pos))
