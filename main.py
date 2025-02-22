@@ -2,7 +2,9 @@ import sys
 import pygame
 
 from scripts.utils import load_image
+from scripts.utils import load_images
 from scripts.allEntities import PhysicsEntity
+from scripts.tilemap import Tilemap
 
 
 class Game:
@@ -16,9 +18,12 @@ class Game:
         self.clock = pygame.time.Clock()
 
         self.player = PhysicsEntity(self, 'player', (50, 50), (8, 16))
+        self.tilemap = Tilemap(self, tile_size=16)
 
-        self.assets = {
-            'player': load_image('entities/player.png')
+        self.resources = {
+            'player': load_image('entities/player.png'),
+            'grass':  load_images('tiles/grass'),
+            'stone':  load_images('tiles/stone')
         }
 
         self.movement = [False, False]
@@ -27,6 +32,7 @@ class Game:
     def run(self):
         while True:
             self.current_window.fill((14, 219, 248))
+            self.tilemap.render(self.current_window)
 
             self.player.update((self.movement[1] - self.movement[0], 0))
             self.player.render(self.current_window)
