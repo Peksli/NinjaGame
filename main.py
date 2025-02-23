@@ -28,14 +28,22 @@ class Game:
 
         self.movement = [False, False]
 
+        self.camera_pos = [0, 0]
+
 
     def run(self):
         while True:
             self.current_window.fill((14, 219, 248))
-            self.tilemap.render(self.current_window)
+
+            self.camera_pos[0] += (self.player.player_rect().centerx - self.current_window.get_width()/2 -  self.camera_pos[0]) / 20
+            self.camera_pos[1] += (self.player.player_rect().centery - self.current_window.get_height()/2 - self.camera_pos[1]) / 20
+
+            self.tilemap.render(self.current_window, self.camera_pos)
+
 
             self.player.update(self.tilemap,self.current_window, (self.movement[1] - self.movement[0], 0))
-            self.player.render(self.current_window)
+            self.player.render(self.current_window, self.camera_pos)
+
 
             print(self.tilemap.physics_rects_around(self.player.pos))
 

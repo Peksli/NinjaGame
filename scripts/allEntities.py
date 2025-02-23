@@ -28,7 +28,6 @@ class PhysicsEntity:
                 if frame_movement[0] < 0:
                     entity_rect.left = rect.right
                 self.pos[0] = entity_rect.x
-        pygame.draw.rect(win, (255, 0, 0), entity_rect, width=1)
 
 
         self.pos[1] += frame_movement[1]
@@ -40,8 +39,7 @@ class PhysicsEntity:
                 if frame_movement[1] < 0:
                     entity_rect.top = rect.bottom
                 self.pos[1] = entity_rect.y
-        pygame.draw.rect(win, (255, 0, 0), entity_rect, width=1)
 
 
-    def render(self, surf):
-        surf.blit(self.game.resources['player'], self.pos)
+    def render(self, surf, camera_at):
+        surf.blit(self.game.resources['player'], (self.pos[0] - camera_at[0], self.pos[1] - camera_at[1]))

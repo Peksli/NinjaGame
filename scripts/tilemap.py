@@ -42,10 +42,10 @@ class Tilemap:
         return rects
 
 
-    def render(self, surf):
+    def render(self, surf, camera_at=(0, 0)):
         for tile_loc in self.tilemap:
             current_tile = self.tilemap[tile_loc] # gettin concrete info(type, variant, pos) using str loc
 
             # blitting images from resources to surface
             surf.blit(self.game.resources[current_tile['type']][current_tile['image_id']],
-                         (self.tile_size * current_tile['pos'][0], self.tile_size * current_tile['pos'][1]))
+                         (self.tile_size * current_tile['pos'][0] - camera_at[0], self.tile_size * current_tile['pos'][1] - camera_at[1]))
