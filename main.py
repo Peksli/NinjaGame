@@ -21,6 +21,7 @@ class Game:
         self.tilemap = Tilemap(self, tile_size=16)
 
         self.resources = {
+            'background': load_image('background.png'),
             'player': load_image('entities/player.png'),
             'grass':  load_images('tiles/grass'),
             'stone':  load_images('tiles/stone')
@@ -33,10 +34,11 @@ class Game:
 
     def run(self):
         while True:
-            self.current_window.fill((14, 219, 248))
+            self.current_window.blit(self.resources['background'], (0, 0))
 
             self.camera_pos[0] += (self.player.player_rect().centerx - self.current_window.get_width()/2 -  self.camera_pos[0]) / 20
             self.camera_pos[1] += (self.player.player_rect().centery - self.current_window.get_height()/2 - self.camera_pos[1]) / 20
+            print(self.camera_pos[0], self.camera_pos[1])
 
             self.tilemap.render(self.current_window, self.camera_pos)
 
